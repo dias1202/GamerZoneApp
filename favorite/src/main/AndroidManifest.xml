@@ -13,9 +13,7 @@
     </dist:module>
 
     <application android:icon="@mipmap/ic_launcher">
-        <activity
-            android:name=".FavoriteActivity"
-            android:exported="false" />
+
     </application>
 
 </manifest>
