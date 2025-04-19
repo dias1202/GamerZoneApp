@@ -10,9 +10,19 @@ jobs:
     environment:
       GRADLE_VERSION: 8.9
       GRADLE_HOME: ~/gradle
+      KEYSTORE_PATH: "/home/circleci/project/keystoregame.jks"
 
     steps:
       - checkout
+
+      - run:
+          name: Decode Keystore
+          command: |
+            if [ -z "$KEYSTORE_BASE64" ]; then
+              echo "ERROR: KEYSTORE_BASE64 is empty!"
+              exit 1
+            fi
+            echo $KEYSTORE_BASE64 | base64 --decode > $KEYSTORE_PATH || { echo "ERROR: Failed to decode keystore"; exit 1; }
 
       - restore_cache:
           key: android-orb-v1-{{ checksum "app/build.gradle.kts" }}
