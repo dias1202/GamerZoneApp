@@ -1,21 +1,14 @@
 <resources>
     <string name="app_name">GamerZoneApp</string>
-    <string name="title_activity_main">MainActivity</string>
     <string name="title_home">Home</string>
-    <string name="title_dashboard">Dashboard</string>
-    <string name="title_notifications">Notifications</string>
 
     <string name="no_data">Empty data</string>
     <string name="something_wrong">Oops.. something went wrong</string>
 
-    <string name="rating">⭐ %1$s</string>
     <string name="title_detail">Detail</string>
-    <string name="game_description">Game description</string>
     <string name="game_image">game image</string>
     <string name="title_game">Game title</string>
-    <string name="game_rating">%1$s/5</string>
     <string name="released">Released: %1$s</string>
-    <string name="platforms">Platform</string>
     <string name="title_favorite">Favorite</string>
 
     <string name="added_to_favorite">Successfully added to favorites</string>

@@ -44,7 +44,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="4dp"
             android:max="5"
-            android:progressTint="#FFC107"
+            android:progressTint="@color/star"
             android:stepSize="0.5"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
