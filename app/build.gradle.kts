@@ -35,7 +35,7 @@ android {
 
     signingConfigs {
         create("release") {
-            val keystorePath = System.getenv("KEYSTORE_PATH") ?: "D:/keystore/keystore_expert.jks"
+            val keystorePath = System.getenv("KEYSTORE_PATH") ?: "C:\\Dicoding\\Kotlin\\GamerZoneApp\\keystoregame.jks"
             storeFile = file(keystorePath)
             storePassword = getSigningProperty("STORE_PASSWORD")
             keyAlias = getSigningProperty("KEY_ALIAS")
