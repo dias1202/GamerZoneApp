@@ -1,6 +1,5 @@
 package com.dicoding.core.data.source.remote
 
-import android.util.Log
 import com.dicoding.core.data.source.remote.network.ApiResponse
 import com.dicoding.core.data.source.remote.network.ApiService
 import com.dicoding.core.data.source.remote.response.GameDetailResponse

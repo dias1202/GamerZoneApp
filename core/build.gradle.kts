@@ -68,4 +68,8 @@ dependencies {
 
     // Glide
     api(libs.glide)
+    
+    // SQLCipher
+    implementation(libs.android.database.sqlcipher)
+    implementation(libs.androidx.sqlite.ktx)
 }

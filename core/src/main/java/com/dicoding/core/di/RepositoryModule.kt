@@ -5,7 +5,6 @@ import com.dicoding.core.data.source.local.LocalDataSource
 import com.dicoding.core.data.source.remote.RemoteDataSource
 import com.dicoding.core.domain.repository.IGameRepository
 import com.dicoding.core.utils.AppExecutors
-import dagger.Binds
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn

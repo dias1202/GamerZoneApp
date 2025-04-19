@@ -1,6 +1,7 @@
 package com.dicoding.gamerzoneapp.ui.detail
 
 import android.os.Bundle
+import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
@@ -54,8 +55,10 @@ class DetailActivity : AppCompatActivity() {
                             showToast(getString(R.string.something_wrong))
                         }
 
-                        is Resource.Loading -> binding.contentGameDetail.progressCircular.visibility =
-                            View.VISIBLE
+                        is Resource.Loading -> {
+                            binding.contentGameDetail.progressCircular.visibility =
+                                View.VISIBLE
+                        }
 
                         is Resource.Success -> {
                             binding.contentGameDetail.progressCircular.visibility = View.GONE
@@ -135,7 +138,7 @@ class DetailActivity : AppCompatActivity() {
 
     private fun showToast(message: String) {
         Toast.makeText(
-            this,
+            applicationContext,
             message,
             Toast.LENGTH_SHORT
         ).show()

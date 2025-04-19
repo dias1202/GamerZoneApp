@@ -63,11 +63,7 @@ class MainActivity : AppCompatActivity() {
                     }
                 }
                 .addOnFailureListener {
-                    Toast.makeText(
-                        this,
-                        "Failed to install favorite feature: ${it.message}",
-                        Toast.LENGTH_SHORT
-                    ).show()
+                    showToast("Failed to install favorite feature: ${it.message}")
                 }
         }
     }
@@ -92,9 +88,17 @@ class MainActivity : AppCompatActivity() {
             navController.navigate(destinationId)
 
         } catch (e: ClassNotFoundException) {
-            Toast.makeText(this, "Class not found: ${e.message}", Toast.LENGTH_SHORT).show()
+            showToast("Class not found: ${e.message}")
         } catch (e: Exception) {
-            Toast.makeText(this, "Failed to open favorite: ${e.message}", Toast.LENGTH_SHORT).show()
+            showToast("Failed to open favorite: ${e.message}")
         }
+    }
+
+    private fun showToast(message: String) {
+        Toast.makeText(
+            applicationContext,
+            message,
+            Toast.LENGTH_SHORT
+        ).show()
     }
 }

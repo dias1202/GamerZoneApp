@@ -1,3 +1,5 @@
+@file:Suppress("UNCHECKED_CAST")
+
 package com.dicoding.gamerzoneapp.favorite
 
 import android.content.Context

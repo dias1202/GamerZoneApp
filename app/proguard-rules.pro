@@ -19,3 +19,13 @@
 # If you keep the line number information, uncomment this to
 # hide the original source file name.
 #-renamesourcefileattribute SourceFile
+
+# Keep Fragment dari modul favorite
+-keep class com.dicoding.gamerzoneapp.favorite.** { *; }
+-keep public class * extends androidx.fragment.app.Fragment
+-keep public class * extends android.app.Activity
+
+# Jika pakai Hilt di favorite
+-keep class dagger.hilt.** { *; }
+-keep class * extends dagger.hilt.android.internal.lifecycle.HiltViewModelFactory { *; }
+-keep class com.dicoding.gamerzoneapp.favorite.*Hilt* { *; }

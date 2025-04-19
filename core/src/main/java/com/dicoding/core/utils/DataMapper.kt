@@ -1,7 +1,6 @@
 package com.dicoding.core.utils
 
 import android.util.Log
-import androidx.core.text.HtmlCompat
 import com.dicoding.core.data.source.local.entity.GameDetailEntity
 import com.dicoding.core.data.source.local.entity.GameEntity
 import com.dicoding.core.data.source.remote.response.GameDetailResponse
@@ -47,23 +46,31 @@ object DataMapper {
         )
 
     fun GameDetailResponse.toEntity(): GameDetailEntity? {
-        if (this.platforms == null) {
-            Log.e("DataMapper", "Invalid data from API: $this")
+        try {
+            if (this.platforms == null) {
+                Log.e("DataMapper", "Invalid data from API: platforms is null -> $this")
+                return null
+            }
+
+
+            val platformNames = this.platforms.mapNotNull { it?.platform?.name }
+
+            val entity = GameDetailEntity(
+                id = this.id,
+                name = this.name ?: "Unknown",
+                description = this.description ?: "No description",
+                released = this.released ?: "Unknown",
+                rating = this.rating,
+                backgroundImage = this.backgroundImage ?: "",
+                platforms = platformNames,
+                isFavorite = false
+            )
+
+            return entity
+        } catch (e: Exception) {
+            Log.e("DataMapper", "Exception saat mapping: ${e.message}", e)
             return null
         }
-
-        val platformNames = this.platforms.map { it?.platform?.name }
-
-        return GameDetailEntity(
-            id = this.id,
-            name = this.name ?: "Unknown",
-            description = this.description ?: "No description",
-            released = this.released ?: "Unknown",
-            rating = this.rating,
-            backgroundImage = this.backgroundImage ?: "",
-            platforms = platformNames,
-            isFavorite = false
-        )
     }
 
     fun GameDetailEntity?.toDomain(): GameDetail =
@@ -78,7 +85,9 @@ object DataMapper {
                 platforms = it.platforms,
                 isFavorite = it.isFavorite
             )
-        } ?: GameDetail(0, "Unknown", "No description", "Unknown", 0.0, "", listOf(""), false)
+        } ?: run {
+            GameDetail(0, "Unknown", "No description", "Unknown", 0.0, "", listOf(""), false)
+        }
 
     fun GameDetail.toEntity(): GameDetailEntity =
         GameDetailEntity(
@@ -96,7 +105,7 @@ object DataMapper {
         GameDetail(
             id = this.id,
             name = this.name,
-            description = "", // Karena GameEntity gak punya deskripsi
+            description = "",
             released = this.released ?: "Unknown",
             rating = this.rating,
             backgroundImage = this.backgroundImage ?: "",

@@ -1,9 +1,22 @@
+import java.io.FileInputStream
+import java.util.Properties
+
 plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.kotlin.android)
     id("kotlin-parcelize")
     id("com.google.devtools.ksp")
     id("com.google.dagger.hilt.android")
+}
+
+fun getSigningProperty(propertyName: String): String {
+    val properties = Properties()
+    val file = File(rootProject.projectDir, "local.properties")
+    if (file.exists()) {
+        FileInputStream(file).use { properties.load(it) }
+    }
+
+    return properties.getProperty(propertyName, System.getenv(propertyName) ?: "")
 }
 
 android {
@@ -20,9 +33,32 @@ android {
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     }
 
+    signingConfigs {
+        create("release") {
+            val keystorePath = System.getenv("KEYSTORE_PATH") ?: "D:/keystore/keystore_expert.jks"
+            storeFile = file(keystorePath)
+            storePassword = getSigningProperty("STORE_PASSWORD")
+            keyAlias = getSigningProperty("KEY_ALIAS")
+            keyPassword = getSigningProperty("KEY_PASSWORD")
+        }
+    }
+
     buildTypes {
         release {
-            isMinifyEnabled = false
+            signingConfig = signingConfigs.getByName("release")
+        }
+    }
+
+    buildTypes {
+        release {
+            isMinifyEnabled = true
+            proguardFiles(
+                getDefaultProguardFile("proguard-android-optimize.txt"),
+                "proguard-rules.pro"
+            )
+        }
+        debug {
+            isMinifyEnabled = true
             proguardFiles(
                 getDefaultProguardFile("proguard-android-optimize.txt"),
                 "proguard-rules.pro"
@@ -68,4 +104,7 @@ dependencies {
 
     // Play Core
     implementation(libs.feature.delivery.ktx)
+
+    // Leak Canary
+    debugImplementation(libs.leakcanary.android)
 }
